@@ -1,0 +1,15 @@
+# Entornos Virtuales
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+db.sqlite3
+*.sqlite3
+
+# Docker
+*.log
