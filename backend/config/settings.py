@@ -18,7 +18,6 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR.parent / '.env')
-print("DEBUG DB_HOST:", os.getenv("DB_HOST"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -86,8 +85,6 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT'),
     }
 }
-
-print("DB_HOST:", os.getenv('DB_HOST'))
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
