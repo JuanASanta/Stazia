@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'core',
     'tenant',
     'user',
+    'property',
+    'reservation',
 
 ]
 
