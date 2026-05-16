@@ -1,21 +1,24 @@
 # Stazia
 
-SaaS de gestión para hostales, pensiones y pisos turísticos.
+API gestor de reservas multi-tenant con Django Rest Framework
 
 ## Stack
 - Django
 - Django REST Framework
 - PostgreSQL
 - Docker
-- Tailwind CSS
 
 ## Features (WIP)
-- Multi-tenancy con Row Level Security
+- Atenticación con JWT
+- Aislación por Tenant
 - Gestión de reservas
-- Panel de administración
+- Documentación API
 
 ## Modelos
 - Tenant (id, name, slug)
 - User (id, email, tenant_id, phone)
 - Property (id, tenant_id)
-- Reservation (id, tenant_id, property_id, customer_name, customer_email)
+- Reservation (id, property_id, customer_name, customer_email, state(pending, confirmed, cancelled, checked_id, checked_out))
+  
+## Comando para correrlo
+- docker compose up --build
