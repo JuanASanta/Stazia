@@ -1,5 +1,5 @@
 from django.db import models
-from tenant.models import Tenant
+from apps.tenant.models import Tenant
 
 # Create your models here.
 class Property(models.Model):

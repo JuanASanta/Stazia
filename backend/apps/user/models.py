@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from tenant.models import Tenant
+from apps.tenant.models import Tenant
 
 
 # Create your models here.

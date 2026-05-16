@@ -1,5 +1,5 @@
 from django.db import models
-from property.models import Property
+from apps.property.models import Property
 from django.core.exceptions import ValidationError
 
 
@@ -19,7 +19,7 @@ class Reservation(models.Model):
     customer_name = models.CharField(max_length=255)
     customer_email = models.EmailField()
     state = models.CharField(choices=STATE_CHOICES)
-    guests = models.PositiveIntegerField()
+    guests = models.PositiveIntegerField(default=1)
     notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

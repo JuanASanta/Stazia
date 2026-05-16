@@ -42,12 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Mis apps
-    'core',
-    'tenant',
-    'user',
-    'property',
-    'reservation',
-
+    'apps.core',
+    'apps.tenant',
+    'apps.user',
+    'apps.property',
+    'apps.reservation',
 ]
 
 MIDDLEWARE = [
