@@ -1,5 +1,6 @@
 from django.db import models
 from apps.property.models import Property
+from apps.tenant.models import Tenant
 from django.core.exceptions import ValidationError
 
 
@@ -13,12 +14,13 @@ class Reservation(models.Model):
         ('checked_out', 'Checked Out'),
     ]
 
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='reservations')
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='reservations')
     start_date = models.DateField()
     end_date = models.DateField()
     customer_name = models.CharField(max_length=255)
     customer_email = models.EmailField()
-    state = models.CharField(choices=STATE_CHOICES)
+    state = models.CharField(max_length=20, choices=STATE_CHOICES, default='pending')
     guests = models.PositiveIntegerField(default=1)
     notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -34,7 +36,32 @@ class Reservation(models.Model):
         if self.start_date >= self.end_date:
             raise ValidationError("La fecha de inicio debe ser anterior a la fecha de fin.")
         
+        # Buscar reservas solapadas
+        overlapping_reservations = Reservation.objects.filter(
+            property=self.property,
+            start_date__lt=self.end_date,
+            end_date__gt=self.start_date
+        )
+
+        # Excluir esta reserva si estamos editando
+        if self.pk:
+            overlapping_reservations = overlapping_reservations.exclude(pk=self.pk)
+
+        # Lanzar error si existe conflicto
+        if overlapping_reservations.exists():
+            raise ValidationError(
+                "Ya existe una reserva para esas fechas."
+            )
+        
     def save(self, *args, **kwargs):
-        self.clean()  # Llamar al método clean para validar antes de guardar
+        self.full_clean()  # Llamar al método clean para validar antes de guardar
         super().save(*args, **kwargs)  # Llamar al método save original para guardar el objeto
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['tenant']),
+            models.Index(fields=['property']),
+            models.Index(fields=['start_date']),
+            models.Index(fields=['state']),
+        ]
     

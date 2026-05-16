@@ -38,7 +38,7 @@ class MyUserManager(BaseUserManager):
 class User(AbstractUser):
     tenant = models.OneToOneField(Tenant, on_delete=models.CASCADE, related_name='user', blank=True, null=True)
     email = models.EmailField(unique=True)
-    phone = models.CharField(max_length=9, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
     username = None
 
     objects = MyUserManager()
