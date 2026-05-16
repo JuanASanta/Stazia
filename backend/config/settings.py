@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Terceros
+    'rest_framework',
+
     # Mis apps
     'apps.core',
     'apps.tenant',
